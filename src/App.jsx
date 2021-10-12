@@ -6,11 +6,14 @@ function App ({name}) {
 	return (
 		<React.StrictMode>
 			<ErrorBoundary>
-				<header>Mini netflix</header>
-				<main>
+				<main className="container">
 					<Movies />
 				</main>
-				<footer></footer>
+				<footer className="footer">
+					<div className="container">
+						Mini netflix
+					</div>
+				</footer>
 			</ErrorBoundary>
 		</React.StrictMode>
 	)
