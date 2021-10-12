@@ -3,5 +3,7 @@
 .movie-card__poster {
 	max-width: 100%;
 	width: 100%;
-	height: auto;
+	height: 400px;
+	object-fit: cover;
+	object-position: center;
 }
