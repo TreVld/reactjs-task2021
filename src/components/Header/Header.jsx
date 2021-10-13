@@ -1,7 +1,7 @@
 import React from "react"
 import PropTypes from 'prop-types';
 import Button from "../Button/Button"
-function Header ({ search, setSearch }) {
+function Header ({ search, setSearch, setSearchBy }) {
 	const handleInput = e => setSearch(e.target.value)
 
 	return (
@@ -15,8 +15,8 @@ function Header ({ search, setSearch }) {
 				<div>
 					<div>
 						Search by 
-						<span>title</span>
-						<span>genre</span>
+						<button type="button" onClick={() => setSearchBy('title')}>title</button>
+						<button type="button" onClick={() => setSearchBy('genre')}>genre</button>
 					</div>
 					<Button>Search</Button>
 				</div>
@@ -27,7 +27,8 @@ function Header ({ search, setSearch }) {
 
 Header.propTypes = {
 	search: PropTypes.string.isRequired,
-	setSearch: PropTypes.func.isRequired
+	setSearch: PropTypes.func.isRequired,
+	setSearchBy: PropTypes.func.isRequired
 }
 
 export default Header

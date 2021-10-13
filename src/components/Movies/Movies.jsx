@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 
 import './Movies.scss'
 
-function filterByTitle(search = '', movies = []) {
+function filterByTitle(search='', movies=[]) {
 	return movies.filter(movie => (
 		(movie.title || '')
 			.toUpperCase()
@@ -13,11 +13,28 @@ function filterByTitle(search = '', movies = []) {
 	)
 }
 
+function filteredByGenres(search='', movies=[]) {
+	return movies.filter(movie => (
+		(movie.genres || [])
+			.some(genre => genre.toUpperCase().includes(search.toUpperCase()))
+		)
+	)
+}
+
+function computeMovies (search='', searchBy='title', movies=[]) {
+	if(searchBy === 'genre') {
+		return filteredByGenres(search, movies)
+	}
+
+	return filterByTitle(search, movies)
+}
+
 export default function Movies () {
 	const [ error, setError ] = useState(null)
 	const [ initialMovies, setInitialMovies ] = useState([])
 	const [ isLoaded, setLoaded ] = useState(false)
 	const [ search, setSearch ] = useState('')
+	const [ searchBy, setSearchBy ] = useState('title')
 
 	const URL = 'https://reactjs-cdp.herokuapp.com/movies'
 		
@@ -33,7 +50,7 @@ export default function Movies () {
 			})
 	}, [])
 
-	const movies = useMemo(() => filterByTitle(search, initialMovies), [search, initialMovies]);
+	const movies = useMemo(() => computeMovies(search, searchBy, initialMovies), [search, searchBy, initialMovies]);
 
 	if (error) {
 		return <div>Ошибка: {error.message}</div>;
@@ -45,7 +62,7 @@ export default function Movies () {
 
 	return (
 		<>	
-			<Header search={search} setSearch={setSearch}/>		
+			<Header search={search} setSearch={setSearch} setSearchBy={setSearchBy} />		
 			<h1>Movies</h1>
 			{
 				movies?.length 
