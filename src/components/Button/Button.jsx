@@ -1,7 +1,14 @@
-import React from "react";
+import React from 'react'
+import PropTypes from 'prop-types'
 
 import './Button.scss'
 
-export default function Button (props) {
-	return <button className="btn">{ props.children }</button>
+function Button (props) {
+  return <button className="btn">{props.children}</button>
 }
+
+Button.propTypes = {
+  children: PropTypes.element.isRequired
+}
+
+export default Button

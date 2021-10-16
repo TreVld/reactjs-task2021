@@ -1,5 +1,6 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ESLintPlugin = require('eslint-webpack-plugin')
 
 module.exports = {
   context: path.join(__dirname, 'src'),
@@ -7,39 +8,37 @@ module.exports = {
     main: './index.js'
   },
 
-	output: {
-		path: path.join(__dirname, "dist"),
-		filename: "[name].[contenthash].js"
-	},
-
-	resolve: {
-    extensions: ['.js', '.jsx'],
+  output: {
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].[contenthash].js'
   },
 
-	module: {
-		rules: [
-			{
-				test: /\.(js|jsx)$/,
-				exclude: /(node_modules)/,
-				use: {
-					loader: 'babel-loader',
-					options: {
-						presets: [
-							'@babel/preset-env',
-							"@babel/preset-react"
-						]
-					}
-				}
-			},
-			{
-        test: /\.(css|s[ac]ss)$/i,
-        use: ["style-loader", "css-loader", "sass-loader"]
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
+
+  module: {
+    rules: [
+      {
+        test: /\.(js|jsx)$/,
+        exclude: /(node_modules)/,
+        use: ['babel-loader']
       },
-		]
-	},
-	
-	plugins: [new HtmlWebpackPlugin({
-		title: "Mini netflix",
-		template: '../public/index.html'
-	})]
-};
+      {
+        test: /\.(css|s[ac]ss)$/i,
+        use: ['style-loader', 'css-loader', 'sass-loader']
+      }
+    ]
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'Mini netflix',
+      template: '../public/index.html'
+    }),
+    new ESLintPlugin({
+      context: path.join(__dirname, 'src'),
+      extensions: ['.js', '.jsx']
+    })
+  ]
+}
