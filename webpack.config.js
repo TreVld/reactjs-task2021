@@ -33,7 +33,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Mini netflix',
+      title: 'Netflixroulette',
       template: '../public/index.html'
     }),
     new ESLintPlugin({
