@@ -21,7 +21,7 @@ class ErrorBoundary extends React.Component {
 }
 
 ErrorBoundary.propTypes = {
-  children: PropTypes.element
+  children: PropTypes.node
 }
 
 export default ErrorBoundary
