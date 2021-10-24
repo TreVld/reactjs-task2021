@@ -1,0 +1,35 @@
+.btn-group {
+  display: flex;
+  align-items: center;
+}
+
+.btn-group__right {
+  justify-content: flex-end;
+}
+
+
+.btn-group__inner {
+  display: flex;
+  align-items: center;
+  
+  .btn {
+    border-radius: 0;
+    
+    &:first-of-type {
+      border-bottom-left-radius: var(--border-radius);
+      border-top-left-radius: var(--border-radius);
+    }
+    
+    &:last-of-type {
+      border-bottom-right-radius: var(--border-radius);
+      border-top-right-radius: var(--border-radius);
+    }
+  }
+}
+
+.btn-group__title {
+  opacity: 0.8;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-right: 1.5rem;
+}
