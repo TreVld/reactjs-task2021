@@ -1,14 +1,26 @@
 .btn {
 	border: none;
-	text-transform: uppercase;
-	color: white;
-	background-color: #f55263;
-	height: 3rem;
-	min-width: 200px;
+  border-radius: var(--border-radius);
+	color: var(--text-color);
+	background-color: var(--primary-color);
+  background-color: rgba(66,66,66,0.68);
+  padding: 0.5rem 1rem;
+  font-size: 15px;
+  font-weight: 400;
 	display: inline-flex;
 	justify-content: center;
 	align-items: center;
-	padding: 1rem 0.5rem;
-	box-sizing: border-box;
+	text-transform: uppercase;
 	cursor: pointer;
+}
+
+.btn_lg {
+  padding: 1rem;
+  font-size: 1.25rem;
+  font-weight: 500;
+  min-width: 230px;
+}
+
+.btn_primary {
+	background-color: var(--primary-color);
 }
