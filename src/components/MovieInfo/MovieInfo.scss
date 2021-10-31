@@ -1,0 +1,50 @@
+.movie-info {
+  display: flex;
+  gap: 3rem;
+}
+
+.movie-info__poster {
+  max-width: 300px;
+  aspect-ratio: 0.7;
+  height: auto;
+}
+
+.movie-info__title {
+  margin: 1.5rem 0 0 0;
+  font-weight: normal;
+  opacity: 0.8;
+  font-size: 52px;
+  letter-spacing: 0;
+  display: flex;
+}
+
+.movie-info__rating {
+  height: 69px;
+  width: 69px;
+  border-radius: 50%;
+  border: 1px solid white;
+  opacity: 0.8;
+  display: inline-grid;
+  place-items: center;
+  flex-shrink: 0;
+  color: #A1E66F;
+  font-size: 26px;
+  margin-left: 1rem;
+}
+
+.movie-info__tagline {
+  opacity: 0.7;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+
+.movie-info__time {
+  margin: 2rem 0;
+  display: flex;
+  gap: 2rem;
+}
+
+.movie-info__desc {
+  opacity: 0.8;
+  font-size: 17px;
+}

@@ -1,0 +1,16 @@
+.movie-info-time {
+  font-size: 14px;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.movie-info-time__value {
+  color: var(--primary-color);
+  opacity: 1;
+  font-size: 26px;
+} 
+
+.movie-info-time__label {
+  opacity: 0.5;
+} 

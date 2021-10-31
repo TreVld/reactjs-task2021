@@ -13,7 +13,7 @@ class ErrorBoundary extends React.Component {
 
   render () {
     if (this.state.hasError) {
-      return <h1>Что-то пошло не так.</h1>
+      return <h1>Oooops...</h1>
     }
 
     return this.props.children

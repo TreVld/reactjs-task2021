@@ -3,29 +3,30 @@ import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import './ButtonGroup.scss'
 
-function ButtonGroup (props) {
-  const className = classNames('btn-group', {
-    'btn-group__right': props.right
-  })
+function ButtonGroup ({
+  children, title, className, ...attrs
+}) {
+  const classes = classNames(
+    'btn-group',
+    className
+  )
 
   return (
-    <div className={className}>
-      { !!props.title && <div className="btn-group__title">{props.title}</div> }
-      <div className="btn-group__inner">
-        { props.children }
-      </div>
+    <div className={classes} {...attrs}>
+      { !!title && <div className="btn-group__title">{title}</div> }
+      <div className="btn-group__inner">{ children }</div>
     </div>
   )
 }
 
 ButtonGroup.propTypes = {
   title: PropTypes.string,
-  right: PropTypes.bool,
-  children: PropTypes.arrayOf(PropTypes.element)
+  children: PropTypes.node,
+  className: PropTypes.string
 }
 
 ButtonGroup.defaultProps = {
-  right: false
+  title: ''
 }
 
 export default ButtonGroup

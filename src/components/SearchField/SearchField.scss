@@ -1,0 +1,25 @@
+.search-field {}
+
+.search-field__label {
+  display: block;
+  text-transform: uppercase;
+  font-size: 40px;
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+.search-field__body {
+  display: flex;
+  gap: 1rem;
+}
+
+.search-field__input {
+  outline: none;
+  border: none;
+  padding: 1rem;
+  width: 100%;
+  border-radius: var(--border-radius);
+  background-color: rgba(50,50,50,0.8);
+  color: var(--text-color);
+  font-size: 1.25rem;
+}

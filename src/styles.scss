@@ -1,12 +1,68 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap');
+
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
 
 html {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 16px;
 }
 
 .container {
-	max-width: 1000px;
-  padding: 0 1rem;
+	max-width: 1092px;
+  width: 100%;
 	margin: 0 auto;
+}
+
+.container_sm {
+  max-width: 960px;
+}
+
+.app {
+  background: var(--bg-color);
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-body {
+  position: relative;
+  flex-grow: 1;
+}
+
+.app-header {
+  background: url('./assets/images/bg.jpg');
+  background-attachment: fixed;
+  background-size: contain;
+}
+
+.app-header__content {
+  background-color: rgba(0, 0, 0, 0.85);
+}
+
+.app-header__toolbar {
+  @extend .container;
+
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0 3rem;
+}
+
+.app-footer {
+  text-align: center;
+  background-color: var(--tertiary-color);
+  padding: 1.5rem 0;
+}
+
+.search-filter {
+  margin-top: 1rem;
+  margin-bottom: 7rem;
+}
+
+.sort-wrapper {
+  background-color: var(--secondary-color);
+  padding: 1rem;
 }

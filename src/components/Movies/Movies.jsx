@@ -1,80 +1,93 @@
-import React, { useState, useEffect, useMemo } from 'react'
-import MovieCard from '../MovieCard/MovieCard'
-import Header from '../Header/Header'
-
+import React, { useState, useEffect } from 'react'
+import { useLocation, useHistory } from 'react-router-dom'
+import Button from '../Button/Button'
+import ButtonGroup from '../ButtonGroup/ButtonGroup'
+import SearchField from '../SearchField/SearchField'
+import MoviesList from './MoviesList'
+import Logotype from '../Logotype/Logotype'
 import './Movies.scss'
 
-function filterByTitle (search = '', movies = []) {
-  return movies.filter((movie) =>
-    (movie.title || '').toUpperCase().includes(search.toUpperCase())
-  )
-}
+const SEARCH_BY_LABELS = ['title', 'genre']
+const SORT_BY_LABELS = ['release_date', 'vote_average']
 
-function filteredByGenres (search = '', movies = []) {
-  return movies.filter((movie) =>
-    (movie.genres || []).some((genre) =>
-      genre.toUpperCase().includes(search.toUpperCase())
-    )
-  )
-}
-
-function computeMovies (search = '', searchBy = 'title', movies = []) {
-  if (searchBy === 'genre') {
-    return filteredByGenres(search, movies)
-  }
-
-  return filterByTitle(search, movies)
+function useQuery () {
+  return new URLSearchParams(useLocation().search)
 }
 
 export default function Movies () {
-  const [error, setError] = useState(null)
-  const [initialMovies, setInitialMovies] = useState([])
-  const [isLoaded, setLoaded] = useState(false)
-  const [search, setSearch] = useState('')
-  const [searchBy, setSearchBy] = useState('title')
+  const query = useQuery()
+  const history = useHistory()
 
-  const URL = 'https://reactjs-cdp.herokuapp.com/movies'
+  const initialSortBy = SORT_BY_LABELS.find(value => value === query.get('sortBy')) || SORT_BY_LABELS[0]
+  const initialSearchBy = SEARCH_BY_LABELS.find(value => value === query.get('searchBy')) || SEARCH_BY_LABELS[0]
+
+  const [search, setSearch] = useState(query.get('search') || '')
+  const [searchBy, setSearchBy] = useState(initialSearchBy)
+  const [sortBy, setSortBy] = useState(initialSortBy)
 
   useEffect(() => {
-    fetch(URL)
-      .then((response) => response.json())
-      .then(
-        (response) => {
-          setInitialMovies(response.data || [])
-          setLoaded(true)
-        },
-        (error) => {
-          setError(error)
-          setLoaded(true)
-        }
-      )
-  }, [])
+    let _query = `?sortBy=${sortBy}&searchBy=${searchBy}`
 
-  const movies = useMemo(
-    () => computeMovies(search, searchBy, initialMovies),
-    [search, searchBy, initialMovies]
-  )
+    if (search) {
+      _query += `&search=${search}`
+    }
 
-  if (error) {
-    return <div>Ошибка: {error.message}</div>
-  }
-
-  if (!isLoaded) {
-    return <div>Загрузка...</div>
-  }
+    history.push(_query)
+  }, [history, search, searchBy, sortBy])
 
   return (
     <>
-      <Header search={search} setSearch={setSearch} setSearchBy={setSearchBy} />
-      <h1>Movies</h1>
-      {movies?.length
-        ? <div className="movies">
-            {movies.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
-            ))}
+      <header className="app-header">
+        <div className="app-header__content">
+          <div className="app-header__toolbar">
+            <Logotype/>
           </div>
-        : <div>No films found</div>
-      }
+
+          <div className="container container_sm">
+            <SearchField id="search-movies" onSubmit={setSearch} />
+            <div className="search-filter">
+              <ButtonGroup title="Search by">
+                <Button
+                  primary={searchBy === 'title'}
+                  onClick={() => setSearchBy('title')}
+                >
+                  title
+                </Button>
+                <Button
+                  primary={searchBy === 'genre'}
+                  onClick={() => setSearchBy('genre')}
+                >
+                  genre
+                </Button>
+              </ButtonGroup>
+            </div>
+          </div>
+          <div className="sort-wrapper">
+            <div className="container container_sm">
+              <ButtonGroup title="Sort by">
+                <Button
+                  primary={sortBy === 'release_date'}
+                  onClick={() => setSortBy('release_date')}
+                >
+                  Release date
+                </Button>
+                <Button
+                  primary={sortBy === 'vote_average'}
+                  onClick={() => setSortBy('vote_average')}
+                >
+                  Rating
+                </Button>
+              </ButtonGroup>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="app-body">
+        <div className="container">
+          <MoviesList search={search} searchBy={searchBy} sortBy={sortBy} />
+        </div>
+      </div>
     </>
   )
 }

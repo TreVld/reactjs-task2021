@@ -22,5 +22,15 @@
 }
 
 .btn_primary {
-	background-color: var(--primary-color);
+  background-color: var(--primary-color);
 }
+
+.btn_icon {
+  padding: 0;
+  
+  &.btn_primary {
+    background-color: transparent;
+    color: var(--primary-color);
+  }
+}
+
