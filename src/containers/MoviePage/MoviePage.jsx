@@ -1,40 +1,28 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import MoviesList from '../Movies/MoviesList'
-import Button from '../Button/Button'
-import Logotype from '../Logotype/Logotype'
-import Placeholder from '../Placeholder/Placeholder'
-import MovieInfo from '../MovieInfo/MovieInfo'
-import './Movie.scss'
+import PropTypes from 'prop-types'
+import MoviesListContainer from '../MoviesListContainer'
+import Panel from '../../components/Panel/Panel'
+import Button from '../../components/Button/Button'
+import Logotype from '../../components/Logotype/Logotype'
+import Placeholder from '../../components/Placeholder/Placeholder'
+import MovieInfo from '../../components/MovieInfo/MovieInfo'
+import { connect } from 'react-redux'
+import { getMovie } from '../../actions'
+import './MoviePage.scss'
 
-export default function Movie () {
+function MoviePage ({ movie, getMovie, error, loading }) {
   const { id } = useParams()
-  const [error, setError] = useState(null)
-  const [movie, setMovie] = useState({})
-  const [isLoaded, setLoaded] = useState(false)
-
-  const BASE_URL = 'https://reactjs-cdp.herokuapp.com/movies/'
 
   useEffect(() => {
-    fetch(BASE_URL + id)
-      .then((response) => response.json())
-      .then(
-        (response) => {
-          setMovie(response || {})
-          setLoaded(true)
-        },
-        (error) => {
-          setError(error)
-          setLoaded(true)
-        }
-      )
-  }, [id])
+    getMovie(id)
+  }, [getMovie, id])
 
   if (error) {
     return <Placeholder title={`Error: ${error.message}`} />
   }
 
-  if (!isLoaded) {
+  if (loading) {
     return <Placeholder title="Loading..." />
   }
 
@@ -61,19 +49,40 @@ export default function Movie () {
           <div className="container">
             <MovieInfo className="movie__info" movie={movie} />
           </div>
-          <div className="sort-wrapper">
-            <div className="container container_sm">
-
-            </div>
-          </div>
+          <Panel>
+            <strong>Films by {movie.genres[0]} genre</strong>
+          </Panel>
         </div>
       </header>
 
       <div className="app-body">
         <div className="container">
-          <MoviesList />
+          <MoviesListContainer searchBy="genres" search={movie.genres[0]}/>
         </div>
       </div>
     </>
   )
 }
+
+MoviePage.propTypes = {
+  movie: PropTypes.object,
+  getMovie: PropTypes.func,
+  error: PropTypes.object,
+  loading: PropTypes.bool
+}
+
+MoviePage.defaultProps = {
+  movie: {},
+  getMovie: () => {},
+  error: null,
+  loading: false
+}
+
+export default connect(
+  (state) => ({
+    loading: state.movieReducer.loading,
+    error: state.movieReducer.error,
+    movie: state.movieReducer.movie
+  }),
+  { getMovie }
+)(MoviePage)

@@ -1,9 +1,9 @@
 import React from 'react'
-import Movies from './components/Movies/Movies'
-import Movie from './components/Movie/Movie'
-import ErrorBoundary from './components/ErrorBoundary'
-import Logotype from './components/Logotype/Logotype'
-import ScrollToTop from './components/ScrollToTop'
+import MoviesPage from '../containers/MoviesPage'
+import MoviePage from '../containers/MoviePage/MoviePage'
+import ErrorBoundary from './ErrorBoundary'
+import Logotype from './Logotype/Logotype'
+import ScrollToTop from './ScrollToTop'
 import {
   BrowserRouter,
   Switch,
@@ -11,19 +11,23 @@ import {
   Redirect
 } from 'react-router-dom'
 import 'normalize.css'
-import './vars.scss'
-import './styles.scss'
+import '../vars.scss'
+import '../styles.scss'
 
-const NotFound = () => <p>404 Not Found</p>
+const NotFound = () => (
+  <div className="app-body">
+    <p>404 Not Found</p>
+  </div>
+)
 
 const routes = [
   {
     path: '/movies/:id',
-    component: Movie
+    component: MoviePage
   },
   {
     path: '/movies',
-    component: Movies
+    component: MoviesPage
   },
   {
     path: '*',

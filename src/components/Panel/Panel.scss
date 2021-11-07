@@ -1,0 +1,10 @@
+.panel {
+  background-color: var(--secondary-color);
+}
+
+.panel__content {
+  display: flex;
+  align-items: center;
+  height: 65px;
+  padding: 1rem;
+}
