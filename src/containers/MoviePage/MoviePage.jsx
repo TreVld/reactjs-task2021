@@ -13,10 +13,11 @@ import './MoviePage.scss'
 
 function MoviePage ({ movie, getMovie, error, loading }) {
   const { id } = useParams()
-
   useEffect(() => {
-    getMovie(id)
-  }, [getMovie, id])
+    if (parseInt(id) !== parseInt(movie.id)) {
+      getMovie(id)
+    }
+  }, [getMovie, id, movie.id])
 
   if (error) {
     return <Placeholder title={`Error: ${error.message}`} />
@@ -24,6 +25,10 @@ function MoviePage ({ movie, getMovie, error, loading }) {
 
   if (loading) {
     return <Placeholder title="Loading..." />
+  }
+
+  if (!movie.id) {
+    return <Placeholder title="No film found" />
   }
 
   return (
