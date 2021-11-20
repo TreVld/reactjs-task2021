@@ -50,25 +50,25 @@ export default function serverRenderer () {
       const app = renderToString(renderRoot())
       const preloadedState = JSON.stringify(store.getState()).replace(/</g, '\\u003c')
 
-      fileSystem.readFile(path.resolve('./dist/index.html'), 'utf8', (err, data) => {
+      fileSystem.readFile(path.resolve('./dist/root.html'), 'utf8', (err, data) => {
         if (err) {
           console.error('Something went wrong:', err)
           return res.status(500).send('Oops, better luck next time!')
         }
 
-        return res.status(200).send(
-          data.replace(
-            '<div id="root"></div>',
-            `
-              <div id="root">${app}</div>
-              <script>
-                // WARNING: See the following for security issues around embedding JSON in HTML:
-                // https://redux.js.org/usage/server-rendering#security-considerations
-                window.__PRELOADED_STATE__ = ${preloadedState}
-              </script>
-            `
-          )
+        const html = data.replace(
+          '<div id="root"></div>',
+          `
+            <div id="root">${app}</div>
+            <script>
+              // WARNING: See the following for security issues around embedding JSON in HTML:
+              // https://redux.js.org/usage/server-rendering#security-considerations
+              window.__PRELOADED_STATE__ = ${preloadedState}
+            </script>
+          `
         )
+
+        return res.status(200).send(html)
       })
     }).catch(e => console.error(e))
   }

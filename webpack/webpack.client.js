@@ -28,7 +28,8 @@ module.exports = merge(common, {
   plugins: [
     isDevMod && new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
-      title: 'Netflixroulette'
+      title: 'Netflixroulette',
+      filename: 'root.html'
     }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].css'
