@@ -1,4 +1,4 @@
-import MoviesPage from './containers/MoviesPage'
+import SearchPage from './containers/SearchPage'
 import MoviePage from './containers/MoviePage/MoviePage'
 import NotFound from './components/NotFound'
 import { getMovie, getMovies } from './actions'
@@ -15,8 +15,8 @@ export const routes = [
     }
   },
   {
-    path: '/movies',
-    component: MoviesPage,
+    path: '/search',
+    component: SearchPage,
     loadData: async (store) => {
       await store.dispatch(getMovies())
     }

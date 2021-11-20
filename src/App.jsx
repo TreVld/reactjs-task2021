@@ -19,13 +19,13 @@ function App ({
   Router, location, context, store
 }) {
   return (
-  <Provider store={store}>
-    <ErrorBoundary>
-      <Router location={location} context={context}>
-        <ScrollToTop />
+    <Provider store={store}>
+      <ErrorBoundary>
+        <Router location={location} context={context}>
+          <ScrollToTop />
           <div className="app">
             <Switch>
-              <Redirect exact from="/" to="/movies" />
+              <Redirect exact from="/" to="/search" />
               { routes.map(route => <Route key={route.path} {...route} />)}
             </Switch>
             <footer className="app-footer">
@@ -34,7 +34,7 @@ function App ({
           </div>
         </Router>
       </ErrorBoundary>
-   </Provider>
+    </Provider>
   )
 }
 

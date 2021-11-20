@@ -4,6 +4,7 @@ const BASE_URL = 'https://reactjs-cdp.herokuapp.com/movies'
 export const GET_MOVIES_LOADING = 'GET_MOVIES_LOADING'
 export const GET_MOVIES_FAILURE = 'GET_MOVIES_FAILURE'
 export const GET_MOVIES_SUCCESS = 'GET_MOVIES_SUCCESS'
+export const SORT_MOVIES = 'SORT_MOVIES'
 
 export const getMoviesLoading = () => ({
   type: GET_MOVIES_LOADING
@@ -27,11 +28,17 @@ export const getMovies = (query) => {
       const response = await fetch(`${BASE_URL}?${query}`)
       const { data: movies } = await response.json()
       dispatch(getMoviesSuccess(movies))
+      dispatch(sortMovies())
     } catch (err) {
       dispatch(getMoviesFailure(err))
     }
   }
 }
+
+export const sortMovies = (sortBy = 'release_date') => ({
+  type: SORT_MOVIES,
+  sortBy
+})
 
 /* Movie */
 export const GET_MOVIE_LOADING = 'GET_MOVIE_LOADING'

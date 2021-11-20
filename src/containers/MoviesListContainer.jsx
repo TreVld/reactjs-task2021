@@ -11,11 +11,9 @@ function MoviesListContainer ({
   error,
   loading,
   searchBy,
-  sortBy,
   search
 }) {
-  const LIMIT = 15
-  const query = `limit=${LIMIT}&searchBy=${searchBy}&sortBy=${sortBy}&search=${search}`
+  const query = `searchBy=${searchBy}&search=${search}`
 
   useEffect(() => {
     getMovies(query)
@@ -38,7 +36,6 @@ MoviesListContainer.propTypes = {
   error: PropTypes.any,
   loading: PropTypes.bool,
   searchBy: PropTypes.oneOf(['title', 'genres']),
-  sortBy: PropTypes.oneOf(['release_date', 'vote_average']),
   search: PropTypes.string
 }
 
@@ -48,7 +45,6 @@ MoviesListContainer.defaultProps = {
   error: null,
   loading: false,
   searchBy: 'title',
-  sortBy: 'release_date',
   search: ''
 }
 

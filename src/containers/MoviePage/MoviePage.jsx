@@ -37,7 +37,7 @@ function MoviePage ({ movie, getMovie, error, loading }) {
         <div className="app-header__content movie">
           <div className="app-header__toolbar">
             <Logotype/>
-            <Button to="/movies" primary icon>
+            <Button to="/" primary icon>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
