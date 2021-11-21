@@ -11,7 +11,7 @@ module.exports = merge(common, {
   target: 'web',
   entry: [
     isDevMod && 'webpack-hot-middleware/client',
-    './src/client.jsx'
+    './src/client.tsx'
   ].filter(Boolean),
   module: {
     rules: [

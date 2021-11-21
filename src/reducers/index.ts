@@ -2,7 +2,11 @@ import { combineReducers } from 'redux'
 import moviesReducer from './moviesReducer'
 import movieReducer from './movieReducer'
 
-export default combineReducers({
+const reducers = combineReducers({
   moviesReducer,
   movieReducer
-})
+});
+
+export default reducers
+
+export type RootState = ReturnType<typeof reducers>

@@ -4,13 +4,25 @@ import {
   GET_MOVIE_SUCCESS
 } from '../actions'
 
-const initialStateMovie = {
+interface IAction {
+  type: string
+  movie: any
+  error: Error
+}
+
+interface IState {
+  loading: boolean,
+  movie: any,
+  error: Error
+}
+
+const initialStateMovie: IState = {
   loading: false,
   movie: {},
   error: null
 }
 
-export default function movieReducer (state = initialStateMovie, { movie, error, type }) {
+export default function movieReducer (state = initialStateMovie, { movie, error, type }: IAction) {
   switch (type) {
     case GET_MOVIE_LOADING:
       return {

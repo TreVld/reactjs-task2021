@@ -3,7 +3,6 @@ import './styles.scss'
 
 import { hot } from 'react-hot-loader'
 import React from 'react'
-import PropTypes from 'prop-types'
 import ErrorBoundary from './components/ErrorBoundary'
 import Logotype from './components/Logotype/Logotype'
 import ScrollToTop from './components/ScrollToTop'
@@ -14,10 +13,22 @@ import {
 } from 'react-router-dom'
 import { routes } from './routes'
 import { Provider } from 'react-redux'
+import { Store } from 'redux'
+
+export interface IContext {
+  url: string
+}
+
+interface IProps {
+  Router: Function
+  location?: string
+  context?: IContext
+  store: Store
+}
 
 function App ({
   Router, location, context, store
-}) {
+}: IProps) {
   return (
     <Provider store={store}>
       <ErrorBoundary>
@@ -36,18 +47,6 @@ function App ({
       </ErrorBoundary>
     </Provider>
   )
-}
-
-App.propTypes = {
-  Router: PropTypes.func.isRequired,
-  location: PropTypes.string,
-  context: PropTypes.shape({
-    url: PropTypes.string
-  }),
-  store: PropTypes.shape({
-    dispatch: PropTypes.func.isRequired,
-    getState: PropTypes.func.isRequired
-  }).isRequired
 }
 
 App.defaultProps = {

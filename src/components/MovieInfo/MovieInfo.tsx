@@ -1,10 +1,15 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import MovieInfoTime from '../MovieInfoTime/MovieInfoTime'
 import './MovieInfo.scss'
 
-function MovieInfo ({ movie, className, ...attrs }) {
+interface IProps {
+  movie: any
+  className?: string
+  [index: string]: any
+}
+
+function MovieInfo ({ movie, className, ...attrs }:IProps) {
   const classes = classNames(
     'movie-info',
     className
@@ -35,11 +40,6 @@ function MovieInfo ({ movie, className, ...attrs }) {
       </div>
     </div>
   )
-}
-
-MovieInfo.propTypes = {
-  className: PropTypes.string,
-  movie: PropTypes.object.isRequired
 }
 
 export default MovieInfo

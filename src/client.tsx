@@ -4,8 +4,8 @@ import App from './App'
 import { BrowserRouter } from 'react-router-dom'
 import configureStore from './store'
 
-const store = configureStore(window.__PRELOADED_STATE__)
-delete window.__PRELOADED_STATE__
+const store = configureStore((window as any).__PRELOADED_STATE__)
+delete (window as any).__PRELOADED_STATE__
 
 hydrate(
   <App

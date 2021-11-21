@@ -1,9 +1,26 @@
-import React, { useEffect } from 'react'
+import React, {useEffect } from 'react'
 import MoviesList from '../components/MoviesList/MoviesList'
 import Placeholder from '../components/Placeholder/Placeholder'
-import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { getMovies } from '../actions'
+import { RootState } from '../reducers'
+
+interface IStateProps {
+  movies?: Array<any>
+  error?: Error
+  loading?: boolean
+}  
+
+interface IDispatchProps {
+  getMovies?: Function
+}
+
+interface OwnProps {
+  searchBy?: string
+  search?: string
+}
+
+type Props = IStateProps & IDispatchProps & OwnProps
 
 function MoviesListContainer ({
   movies,
@@ -12,7 +29,7 @@ function MoviesListContainer ({
   loading,
   searchBy,
   search
-}) {
+}: Props) {
   const query = `searchBy=${searchBy}&search=${search}`
 
   useEffect(() => {
@@ -30,15 +47,6 @@ function MoviesListContainer ({
   return <MoviesList movies={movies} />
 }
 
-MoviesListContainer.propTypes = {
-  movies: PropTypes.array,
-  getMovies: PropTypes.func,
-  error: PropTypes.any,
-  loading: PropTypes.bool,
-  searchBy: PropTypes.oneOf(['title', 'genres']),
-  search: PropTypes.string
-}
-
 MoviesListContainer.defaultProps = {
   movies: [],
   getMovies: () => {},
@@ -48,8 +56,9 @@ MoviesListContainer.defaultProps = {
   search: ''
 }
 
-export default connect(
-  (state) => ({
+
+export default connect<IStateProps, IDispatchProps, OwnProps>(
+  (state: RootState) => ({
     loading: state.moviesReducer.loading,
     error: state.moviesReducer.error,
     movies: state.moviesReducer.movies

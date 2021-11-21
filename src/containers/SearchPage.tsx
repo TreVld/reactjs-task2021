@@ -7,8 +7,8 @@ import SearchField from '../components/SearchField/SearchField'
 import MoviesListContainer from './MoviesListContainer'
 import Panel from '../components/Panel/Panel'
 import Logotype from '../components/Logotype/Logotype'
-import PropTypes from 'prop-types'
 import { sortMovies } from '../actions'
+import { RootState } from '../reducers'
 
 const SEARCH_BY_LABELS = ['title', 'genres']
 const SORT_BY_LABELS = ['release_date', 'vote_average']
@@ -17,7 +17,12 @@ function useQuery () {
   return new URLSearchParams(useLocation().search)
 }
 
-function SearchPage ({ movies, sortMovies }) {
+interface IProps {
+  movies?: Array<any>
+  sortMovies?: Function
+}
+
+function SearchPage ({ movies, sortMovies }: IProps) {
   const query = useQuery()
   const history = useHistory()
   const initialSearchBy = SEARCH_BY_LABELS.find(label => label === query.get('searchBy')) || SEARCH_BY_LABELS[0]
@@ -31,7 +36,7 @@ function SearchPage ({ movies, sortMovies }) {
     sortMovies(sortBy)
   }, [sortBy, sortMovies])
 
-  const submit = search => {
+  const submit = (search: string) => {
     setSearch(search)
     setSearchBy(_searchBy)
 
@@ -94,18 +99,13 @@ function SearchPage ({ movies, sortMovies }) {
   )
 }
 
-SearchPage.propTypes = {
-  movies: PropTypes.array,
-  sortMovies: PropTypes.func
-}
-
 SearchPage.defaultProps = {
   movies: [],
   sortMovies: () => {}
 }
 
 export default connect(
-  (state) => ({
+  (state: RootState) => ({
     movies: state.moviesReducer.movies
   }),
   { sortMovies }

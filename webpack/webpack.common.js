@@ -3,7 +3,7 @@ const path = require('path')
 module.exports = {
   mode: process.env.NODE_ENV,
   context: path.join(__dirname, '../'),
-  devtool: 'source-map',
+  devtool: 'inline-source-map',
 
   output: {
     filename: '[name].js',
@@ -12,7 +12,7 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.tsx', '.ts', '.js'],
     alias: {
       'react-dom': '@hot-loader/react-dom'
     }
@@ -21,9 +21,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
-        exclude: /(node_modules)/,
-        use: ['babel-loader']
+        test: /\.(ts|tsx)?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
       }
     ]
   }

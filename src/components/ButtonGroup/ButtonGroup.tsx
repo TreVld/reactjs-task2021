@@ -1,11 +1,17 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { ReactNode } from 'react'
 import classNames from 'classnames'
 import './ButtonGroup.scss'
 
+interface IProps {
+  children?: ReactNode
+  title?: string
+  className?: string
+  [index: string]: any
+}
+
 function ButtonGroup ({
   children, title, className, ...attrs
-}) {
+}: IProps) {
   const classes = classNames(
     'btn-group',
     className
@@ -17,12 +23,6 @@ function ButtonGroup ({
       <div className="btn-group__inner">{ children }</div>
     </div>
   )
-}
-
-ButtonGroup.propTypes = {
-  title: PropTypes.string,
-  children: PropTypes.node,
-  className: PropTypes.string
 }
 
 ButtonGroup.defaultProps = {

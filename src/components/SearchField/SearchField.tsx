@@ -1,19 +1,27 @@
-import React, { useRef } from 'react'
-import PropTypes from 'prop-types'
+import React, { SyntheticEvent, useRef } from 'react'
 import classNames from 'classnames'
 import Button from '../Button/Button'
 import './SearchField.scss'
 
-function SearchField (
-  { id, className, label, onSubmit, value, ...attrs }
-) {
+interface IProps {
+  id: string
+  className?: string
+  label?: string
+  value?: string
+  onSubmit?: Function
+  [index: string]: any
+}
+
+function SearchField ({ 
+  id, className, label, onSubmit, value, ...attrs 
+}: IProps) {
   const searchInputEl = useRef(null)
   const classes = classNames(
     'search-field',
     className
   )
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault()
     return onSubmit(searchInputEl.current.value)
   }
@@ -41,14 +49,6 @@ function SearchField (
       </div>
     </form>
   )
-}
-
-SearchField.propTypes = {
-  id: PropTypes.string.isRequired,
-  className: PropTypes.string,
-  label: PropTypes.string,
-  value: PropTypes.string,
-  onSubmit: PropTypes.func
 }
 
 SearchField.defaultProps = {

@@ -1,3 +1,4 @@
+import { Dispatch } from 'redux';
 const BASE_URL = 'https://reactjs-cdp.herokuapp.com/movies'
 
 /* Movies */
@@ -10,18 +11,18 @@ export const getMoviesLoading = () => ({
   type: GET_MOVIES_LOADING
 })
 
-export const getMoviesFailure = error => ({
+export const getMoviesFailure = (error: Error) => ({
   type: GET_MOVIES_FAILURE,
   error
 })
 
-export const getMoviesSuccess = movies => ({
+export const getMoviesSuccess = (movies: Array<object>) => ({
   type: GET_MOVIES_SUCCESS,
   movies
 })
 
-export const getMovies = (query) => {
-  return async (dispatch) => {
+export const getMovies = (query?: string) => {
+  return async (dispatch:any) => {
     dispatch(getMoviesLoading())
 
     try {
@@ -49,18 +50,18 @@ export const getMovieLoading = () => ({
   type: GET_MOVIE_LOADING
 })
 
-export const getMovieFailure = error => ({
+export const getMovieFailure = (error: Error) => ({
   type: GET_MOVIE_FAILURE,
   error
 })
 
-export const getMovieSuccess = movie => ({
+export const getMovieSuccess = (movie: object) => ({
   type: GET_MOVIE_SUCCESS,
   movie
 })
 
-export const getMovie = (id) => {
-  return async (dispatch) => {
+export const getMovie = (id: string | number) => {
+  return async (dispatch: Dispatch ) => {
     dispatch(getMovieLoading())
 
     try {

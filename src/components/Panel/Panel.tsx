@@ -1,9 +1,14 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { ReactNode } from 'react'
 import classNames from 'classnames'
 import './Panel.scss'
 
-function Panel ({ children, className, ...attrs }) {
+interface IProps {
+  children: ReactNode
+  className?: string
+  [index: string]: any
+}
+
+function Panel ({ children, className, ...attrs }: IProps) {
   const classes = classNames(
     'panel',
     className
@@ -16,11 +21,6 @@ function Panel ({ children, className, ...attrs }) {
       </div>
     </div>
   )
-}
-
-Panel.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string
 }
 
 export default Panel

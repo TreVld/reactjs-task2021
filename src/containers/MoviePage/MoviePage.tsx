@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import PropTypes from 'prop-types'
 import MoviesListContainer from '../MoviesListContainer'
 import Panel from '../../components/Panel/Panel'
 import Button from '../../components/Button/Button'
@@ -10,9 +9,17 @@ import MovieInfo from '../../components/MovieInfo/MovieInfo'
 import { connect } from 'react-redux'
 import { getMovie } from '../../actions'
 import './MoviePage.scss'
+import { RootState } from '../../reducers'
 
-function MoviePage ({ movie, getMovie, error, loading }) {
-  const { id } = useParams()
+interface IProps {
+  movie?: any
+  getMovie?: Function
+  error?: Error
+  loading?: boolean
+}
+
+function MoviePage ({ movie, getMovie, error, loading }: IProps) {
+  const { id } = useParams<{id?: string}>()
   useEffect(() => {
     if (parseInt(id) !== parseInt(movie.id)) {
       getMovie(id)
@@ -69,13 +76,6 @@ function MoviePage ({ movie, getMovie, error, loading }) {
   )
 }
 
-MoviePage.propTypes = {
-  movie: PropTypes.object,
-  getMovie: PropTypes.func,
-  error: PropTypes.object,
-  loading: PropTypes.bool
-}
-
 MoviePage.defaultProps = {
   movie: {},
   getMovie: () => {},
@@ -84,7 +84,7 @@ MoviePage.defaultProps = {
 }
 
 export default connect(
-  (state) => ({
+  (state: RootState) => ({
     loading: state.movieReducer.loading,
     error: state.movieReducer.error,
     movie: state.movieReducer.movie

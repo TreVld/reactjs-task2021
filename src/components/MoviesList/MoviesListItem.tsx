@@ -1,8 +1,11 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
 
-function MoviesListItem ({ movie }) {
+interface IProps {
+  movie: any
+}
+
+function MoviesListItem ({ movie }: IProps) {
   const year = new Date(movie.release_date).getFullYear()
   const genresRow = (movie.genres || []).join(', ')
 
@@ -24,10 +27,6 @@ function MoviesListItem ({ movie }) {
       </div>
     </Link>
   )
-}
-
-MoviesListItem.propTypes = {
-  movie: PropTypes.object
 }
 
 MoviesListItem.defaultProps = {

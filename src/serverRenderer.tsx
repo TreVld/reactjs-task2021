@@ -1,6 +1,6 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import { StaticRouter, matchPath } from 'react-router-dom'
+import { StaticRouter, matchPath, Router, match } from 'react-router-dom'
 import App from './App'
 import path from 'path'
 import configureStore from './store'
@@ -8,7 +8,7 @@ import { routes } from './routes'
 import fs from 'fs'
 
 export default function serverRenderer () {
-  return (req, res) => {
+  return (req: any, res: any) => {
     let fileSystem = fs
     if (process.env.NODE_ENV === 'development') {
       const { devMiddleware } = res.locals.webpack
@@ -19,7 +19,7 @@ export default function serverRenderer () {
     const fullPathName = req.protocol + '://' + req.get('host') + req.url
 
     const promises = routes.reduce((acc, route) => {
-      const matchRoute = matchPath(req.path, route)
+      const matchRoute: match = matchPath(req.path, route)
       if (matchRoute && route.loadData) {
         acc.push(Promise.resolve(route.loadData(store, new URL(fullPathName), matchRoute)))
       }
@@ -27,7 +27,7 @@ export default function serverRenderer () {
     }, [])
 
     Promise.all(promises).then(() => {
-      const context = {}
+      const context: any = {}
       const renderRoot = () => (
         <App
           context={context}
@@ -70,6 +70,6 @@ export default function serverRenderer () {
 
         return res.status(200).send(html)
       })
-    }).catch(e => console.error(e))
+    })
   }
 }

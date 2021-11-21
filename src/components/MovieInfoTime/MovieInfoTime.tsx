@@ -1,9 +1,15 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import './MovieInfoTime.scss'
 
-function MovieInfoTime ({ value, label, className, ...attrs }) {
+interface IProps {
+  value: string | number
+  label?: string
+  className?: string
+  [index: string]: any
+}
+
+function MovieInfoTime ({ value, label, className, ...attrs }: IProps) {
   const classes = classNames(
     'movie-info-time',
     className
@@ -15,15 +21,6 @@ function MovieInfoTime ({ value, label, className, ...attrs }) {
       {!!label && <label className="movie-info-time__label">{label}</label> }
     </div>
   )
-}
-
-MovieInfoTime.propTypes = {
-  className: PropTypes.string,
-  label: PropTypes.string,
-  value: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ]).isRequired
 }
 
 MovieInfoTime.defaultProps = {
